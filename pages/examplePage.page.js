@@ -12,8 +12,9 @@ class ExamplePage {
         return this.header.$('#header-logo');
     }
 
+    // due to change of class after switching country no parent locator
     get currentCountry() {
-        return this.locator.$('.current-country');
+        return $('.current-country');
     }
 
     get citySearch() {
@@ -35,6 +36,14 @@ class ExamplePage {
     get listOfCities() {
         return this.content.$('.articles');
     }
+
+    get currentForecast() {
+        return $('#forecast-currently');
+    }
+
+    get currentForecastHeader() {
+        return this.currentForecast.$('#header');
+    }
   
   
     findCity(city) {
@@ -45,6 +54,7 @@ class ExamplePage {
         this.btnCitySearch.click();
         this.listOfCities.waitForVisible(5000);
         browser.element(this.listOfCities.selector).click(`*=${city}`);
+        browser.waitForVisible(this.listOfCities.selector, 5000, true);
     }
   }
   
